@@ -1,12 +1,7 @@
 #-*- coding:utf-8 -*-
 __author__ = 'pf'
 
-import urllib
-import urllib2
-import socket
-import types
 import time
-import re
 import os
 import subprocess
 import requests
@@ -21,7 +16,7 @@ class Login:
     #模拟登录
     def login(self):
         print self.getCurrentTime(), u"拼命连网中..."
- #消息头
+        #消息头
         url="http://222.24.19.190:8080/portal/pws?t=li"
 
         headers={
@@ -36,7 +31,7 @@ class Login:
         'Content-Length':"291",
         'Connection':"close"
         }
-        #消息头
+        #提交的信息
         payload={
         'userName':'1403810041',
         'userPwd':'MTk4NDEy',
@@ -68,7 +63,7 @@ class Login:
 
     #主函数
     def main(self):
-        print self.getCurrentTime(), u"老铁您好，欢迎使用自动登陆系统"
+        print self.getCurrentTime(), u"Hi，欢迎使用自动登陆系统"
         while True:
             self.login()
             while True:
