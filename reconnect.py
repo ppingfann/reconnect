@@ -16,9 +16,9 @@ class Login:
     #模拟登录
     def login(self):
         print self.getCurrentTime(), u"拼命连网中..."
-        #消息头
+        
         url="http://222.24.19.190:8080/portal/pws?t=li"
-
+        #消息头
         headers={
         'Host':"222.24.19.190:8080",
         'User-Agent':"Mozilla/5.0 (Windows NT 6.3; WOW64; rv:53.0) Gecko/20100101 Firefox/53.0",
@@ -43,19 +43,21 @@ class Login:
         'appRootUrl':'=http%3A%2F%2F222.24.19.190%3A8080%2Fportal%2F',
         'manualUrlEncryptKey':'rTCZGLy2wJkfobFEj0JF8A%3D%3D'
         }
-
-        r=requests.post(url,headers=headers,data=payload)
-        print self.getCurrentTime(),u'连上了，没毛病...现在开始看连接正常着不'
-
+        try:
+            r=requests.post(url,headers=headers,data=payload)
+            print self.getCurrentTime(),u'连上了...现在开始看连接是否正常'
+        except:
+            print("error")
     #判断当前是否可以连网
     def canConnect(self):
-        fnull = open(os.devnull, 'w')
-        result = subprocess.call('ping www.baidu.com', shell = True, stdout = fnull, stderr = fnull)
-        fnull.close()
-        if result:
-            return False
-        else:
-            return True
+        try:
+            q=requests.get("http://www.baidu.com")
+            if(q.status_code==200):
+                return True
+            else:
+                return False
+        except:
+            print 'error'
 
     #获取当前时间
     def getCurrentTime(self):
@@ -69,10 +71,10 @@ class Login:
             while True:
                 can_connect = self.canConnect()
                 if not can_connect:
-                    print self.getCurrentTime(),u"断网了，呵呵哒"
+                    print self.getCurrentTime(),u"断网了..."
                     self.login()
                 else:
-                    print self.getCurrentTime(), u"嗯，一切正常"
+                    print self.getCurrentTime(), u"一切正常..."
                 time.sleep(self.every)
             time.sleep(self.every)
 
